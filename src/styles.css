@@ -1,0 +1,136 @@
+*,*::after,*::before{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    /* outline: 1px solid red; */
+    font-family:sans-serif;
+}
+body{
+   background-color:skyblue;
+}
+.app h1{
+    text-align:center;
+    font-size:4rem;
+    background:linear-gradient(to right, blue,red);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin:4rem 20%;
+}
+.ui{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    min-height:45vh;
+    min-width:100vw;
+    flex-direction:column;
+}
+.content{
+    border:0 solid grey;
+    max-width:1300px;
+    font-size:3rem;
+    line-height:5rem;
+    box-shadow:3px 3px 10px grey;
+    border-radius:10px;
+    background-color:#fff;
+    padding:.5rem 1rem;
+}
+.inputDiv{
+    display:flex;
+    margin:2rem;
+    background-color:rgba(66, 64, 64, 0.4);
+    padding:12px;
+    border-radius:10px;
+    align-items:center;
+    padding:.86rem 245px;
+}
+input{
+    font-size:3rem;
+    padding:10px;
+    border-width: 1px;
+    border-radius:10px;
+    box-shadow: inset 2px 1px 3px 3px rgb(199, 196, 196);
+}
+input:focus{
+    outline:none;
+}
+.time{
+    padding:1.23rem .3rem;
+    background-color: rgba(0, 0, 0,.8);
+    color:#fff;
+    font-size:2.2rem;
+    margin:0 10px;
+    border-radius:10px;
+}
+.refresh{
+    padding:.7rem 1.5rem;
+    background-color: #3973cf;
+    color:#fff;
+    font-size:3rem;
+    border-radius:10px;
+}
+
+@media (max-width: 1350px) {
+    .inputDiv{
+        display:flex;
+        margin:2rem;
+        background-color:rgba(66, 64, 64, 0.4);
+        padding:12px;
+        border-radius:10px;
+        align-items:center;
+    }
+    .content{
+        max-width:1200px;
+        margin:0 4%;
+    }
+    .app h1{
+        margin:4rem 20%;
+    }
+}
+@media (max-width:900px){
+    .inputDiv{
+        display:flex;
+        margin:2rem;
+        background-color:rgba(66, 64, 64, 0.4);
+        padding:4px;
+        border-radius:10px;
+        align-items:center;
+    }
+    input{
+        font-size:1.15rem;
+        padding:10px 0;
+        border-width: 1px;
+        border-radius:10px;
+        box-shadow: inset 2px 1px 3px 3px rgb(199, 196, 196);
+    }
+    .time{
+        padding:1rem .5rem;
+        background-color: rgba(0, 0, 0,.8);
+        color:#fff;
+        font-size:1rem;
+        margin:0 10px;
+        border-radius:10px;
+    }
+    .refresh{
+        padding:1rem 1rem;
+        background-color: #3973cf;
+        color:#fff;
+        font-size:1rem;
+        border-radius:10px;
+    }
+    .content{
+        max-width:600px;
+        margin:2%;
+        overflow-x:hidden;
+        font-size:1.5rem;
+        padding: none;
+        line-height: 2.5rem;
+    }
+    .ui{
+        overflow-y: hidden; /* Hide vertical scrollbar */
+        overflow-x: hidden;
+    }
+    .app h1{
+        margin:4rem 10%;
+        font-size:2rem;
+    }
+}
