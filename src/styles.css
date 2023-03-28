@@ -16,6 +16,13 @@ body{
     color: transparent;
     margin:4rem 20%;
 }
+h2{
+    text-align:center;
+    font-size:4rem;
+    background:linear-gradient(to right, rgb(91, 32, 91),rgb(21, 0, 255));
+    -webkit-background-clip: text;
+    color:transparent;
+}
 .ui{
     display:flex;
     justify-content: center;
@@ -41,7 +48,7 @@ body{
     padding:12px;
     border-radius:10px;
     align-items:center;
-    padding:.86rem 245px;
+    padding:.86rem 240px;
 }
 input{
     font-size:3rem;
@@ -62,13 +69,19 @@ input:focus{
     border-radius:10px;
 }
 .refresh{
-    padding:.7rem 1.5rem;
+    padding:.34rem 1.5rem;
     background-color: #3973cf;
     color:#fff;
     font-size:3rem;
     border-radius:10px;
+    cursor:pointer;
 }
-
+.icon{
+    margin-top:10px;
+}
+/* .display{
+    visibility: ;
+} */
 @media (max-width: 1350px) {
     .inputDiv{
         display:flex;
@@ -84,6 +97,9 @@ input:focus{
     }
     .app h1{
         margin:4rem 20%;
+    }
+    .icon{
+        margin-top:10px;
     }
 }
 @media (max-width:900px){
@@ -132,5 +148,15 @@ input:focus{
     .app h1{
         margin:4rem 10%;
         font-size:2rem;
+    }
+    .icon{
+        margin-top:.5px;
+    }
+    h2{
+        text-align:center;
+        font-size:2rem;
+        background:linear-gradient(to right, rgb(91, 32, 91),rgb(21, 0, 255));
+        -webkit-background-clip: text;
+        color:transparent;
     }
 }

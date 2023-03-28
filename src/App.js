@@ -5,7 +5,7 @@ import './styles.css';
 function App() {
   return (
     <div className="app">
-    <h1>TYPE TEST</h1>
+    <h1>TYPE&TEST</h1>
       <Ui/>
     </div>
   );
