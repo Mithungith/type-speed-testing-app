@@ -8,7 +8,7 @@ export default function Ui() {
   const [score,setScore] = useState(0);
   const [visible,setVisible] = useState(true);
   const typeString =
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa ipsa incidunt ab aperiam id! Architecto, accusamus!";
+    "Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your paper.";
   const newArr = typeString.split(' ');
 
   function handleKeyDown(e) {
@@ -78,7 +78,7 @@ export default function Ui() {
     window.location.reload();
   }
   function handleFocus() {
-    handleInterval(.25);
+    handleInterval(1);
   }
   
   return (
@@ -101,7 +101,7 @@ export default function Ui() {
           <BiRefresh className='icon'/>
         </div>
       </div>
-      <div><h2 style={{display:visible?'none':null,position:'relative',marginBottom:'2rem'}}>SCORE: {score} PER MINUTE</h2></div>
+      <div><h2 style={{display:visible?'none':null,position:'relative',marginBottom:'2rem'}}>SCORE: {score} WPM</h2></div>
     </div>
   );
 }
