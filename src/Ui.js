@@ -7,6 +7,7 @@ export default function Ui() {
   let [typeValue,setTypeValue]= useState('');
   const [score,setScore] = useState(0);
   const [visible,setVisible] = useState(true);
+  const [start,setStart] = useState(false);
   const typeString =
     "Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your paper.";
   const newArr = typeString.split(' ');
@@ -48,6 +49,10 @@ export default function Ui() {
   function handleChange(e){
     console.log(typeValue);
     setTypeValue(e.target.value);
+    if(e.target.value && (!start)){
+       setStart(true);
+       handleInterval(.25);
+    }
   }
   function handleInterval(putMinutes){
     let timeCount = putMinutes;
@@ -78,7 +83,7 @@ export default function Ui() {
     window.location.reload();
   }
   function handleFocus() {
-    handleInterval(1);
+    handleInterval(.25);
   }
   
   return (
@@ -88,7 +93,7 @@ export default function Ui() {
         <input
           type="text"
           onKeyDown={handleKeyDown}
-          onFocus={handleFocus}
+          // onFocus={handleFocus}
           autoCorrect='off'
           onChange={handleChange}
           value = {typeValue}
