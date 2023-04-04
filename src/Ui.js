@@ -8,6 +8,7 @@ export default function Ui() {
   const [score,setScore] = useState(0);
   const [visible,setVisible] = useState(true);
   const [start,setStart] = useState(false);
+  const [disableInput,setDisableInput] = useState(false);
   const typeString =
     "Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your paper.";
   const newArr = typeString.split(' ');
@@ -78,6 +79,7 @@ export default function Ui() {
     clearInterval(mit);
     setVisible(false);
     setTypeValue('');
+    setDisableInput(true);
   }
   function handleClick(e) {
     window.location.reload();
@@ -98,6 +100,7 @@ export default function Ui() {
           onChange={handleChange}
           value = {typeValue}
           // style={{outline:visible?null:'none'}}
+          disabled ={disableInput}
         ></input>
         <div className="time">
           {time.minutes}:{time.seconds}
