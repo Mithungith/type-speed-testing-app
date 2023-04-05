@@ -7,8 +7,9 @@ export default function Ui() {
   let [typeValue,setTypeValue]= useState('');
   const [score,setScore] = useState(0);
   const [visible,setVisible] = useState(true);
-  const [start,setStart] = useState(false);
+  const [startWritting,setStartWritting] = useState(false);
   const [disableInput,setDisableInput] = useState(false);
+  const [overlay,setOverlay]= useState(null);
   const typeString =
     "Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your paper.";
   const newArr = typeString.split(' ');
@@ -50,9 +51,9 @@ export default function Ui() {
   function handleChange(e){
     console.log(typeValue);
     setTypeValue(e.target.value);
-    if(e.target.value && (!start)){
-       setStart(true);
-       handleInterval(.25);
+    if(e.target.value && (!startWritting)){
+      setStartWritting(true);
+       handleInterval(.1);
     }
   }
   function handleInterval(putMinutes){
@@ -80,16 +81,21 @@ export default function Ui() {
     setVisible(false);
     setTypeValue('');
     setDisableInput(true);
+    setOverlay(true);
+  }
+  function closeModleHandler(){
+    setVisible(true);
+    setDisableInput(false);
+    setOverlay(false);
+    setStartWritting(false);
   }
   function handleClick(e) {
     window.location.reload();
   }
-  function handleFocus() {
-    handleInterval(.25);
-  }
   
   return (
-    <div className="ui">
+    <>
+    <div className="ui" id={overlay && "overlay"}>
       <div className="content">{typeString}</div>
       <div className="inputDiv">
         <input
@@ -109,7 +115,9 @@ export default function Ui() {
           <BiRefresh className='icon'/>
         </div>
       </div>
-      <div><h2 style={{display:visible?'none':null,position:'relative',marginBottom:'2rem'}}>SCORE: {score} WPM</h2></div>
     </div>
+    <div className='result' style={{display:visible?'none':null}}><button className='close-modal' onClick={closeModleHandler}>X</button><h2 >SCORE: {score} WPM</h2></div>
+    </>
   );
 }
+/*style={{display:visible?'none':null}} */
