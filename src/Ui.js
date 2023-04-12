@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BiRefresh } from "react-icons/bi";
+import { ImCross } from "react-icons/im";
 
 export default function Ui() {
   const [time, setTime] = useState({ minutes: "00", seconds: "00" });
@@ -10,14 +11,17 @@ export default function Ui() {
   const [startWritting,setStartWritting] = useState(false);
   const [disableInput,setDisableInput] = useState(false);
   const [overlay,setOverlay]= useState(null);
+  const [worngCount,setWrongCount] = useState(0);
   const typeString =
     "Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your paper.";
-  const newArr = typeString.split(' ');
+    const newArr = typeString.split(' ');
+  // const makeArr = typeString.split(' ');
+  // const newArr = makeArr.map((word)=><span>{word+' '}</span>)
 
   function handleKeyDown(e) {
     // newTypeValue = typeValue.concat(`${e.target.value}`);
     
-    if(e.key==" "){
+    if(e.key===" "){
       if(newArr[arrCheckIndex]===(typeValue.trim())){
         // setNewTypeValue('');
         //typeValue='';
@@ -29,11 +33,13 @@ export default function Ui() {
         console.log(arrCheckIndex);
         console.log(true);
         setTypeValue('');
-        setScore(score+1);
+        // setScore(score+1);
+        setScore(prev=>prev+1);
         console.log(score);
       }
       else{
         setArrCheckIndex(prevValue=> prevValue+1);
+        setWrongCount(prevValue=>prevValue+1);
         // setNewTypeValue('');
         // typeValue ='';
         console.log(typeValue);
@@ -88,6 +94,8 @@ export default function Ui() {
     setDisableInput(false);
     setOverlay(false);
     setStartWritting(false);
+    setScore(0);
+    setArrCheckIndex(0);
   }
   function handleClick(e) {
     window.location.reload();
@@ -96,6 +104,7 @@ export default function Ui() {
   return (
     <>
     <div className="ui" id={overlay && "overlay"}>
+      {/* <div className="content">{newArr}</div> */}
       <div className="content">{typeString}</div>
       <div className="inputDiv">
         <input
@@ -116,7 +125,7 @@ export default function Ui() {
         </div>
       </div>
     </div>
-    <div className='result' style={{display:visible?'none':null}}><button className='close-modal' onClick={closeModleHandler}>X</button><h2 >SCORE: {score} WPM</h2></div>
+    <div className='result' style={{display:visible?'none':null}}><button className='close-modal' onClick={closeModleHandler}><ImCross/></button><div><h2 >SCORE: {score} WPM</h2><h2>WRONG: {worngCount}</h2></div></div>
     </>
   );
 }
