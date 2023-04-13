@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiRefresh } from "react-icons/bi";
 import { ImCross } from "react-icons/im";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Ui() {
   const [time, setTime] = useState({ minutes: "00", seconds: "00" });
@@ -13,60 +14,70 @@ export default function Ui() {
   const [overlay,setOverlay]= useState(null);
   const [worngCount,setWrongCount] = useState(0);
   const typeString =
-    "Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your paper.";
-    const newArr = typeString.split(' ');
-  // const makeArr = typeString.split(' ');
-  // const newArr = makeArr.map((word)=><span>{word+' '}</span>)
+    "Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your";
+  const newTypeString = typeString.split(' ').map((item,i)=>{
+    return {
+      value:item,
+      error:undefined,
+      correct:undefined
+    }
+  }); 
+  console.log(newTypeString)
+  const [newStr,setNewStr] = useState(newTypeString);
+
+  //-----------rendering text on screen------------//
+  const newArr = newStr.map(({value,error,correct})=><span className={error?'error':null || correct?'correct':null}>{value}</span>)
+  //----------------//
 
   function handleKeyDown(e) {
-    // newTypeValue = typeValue.concat(`${e.target.value}`);
-    
     if(e.key===" "){
-      if(newArr[arrCheckIndex]===(typeValue.trim())){
-        // setNewTypeValue('');
-        //typeValue='';
-        
-        // console.log(newTypeValue);
-        console.log(typeValue);
-        // newTypeValue='';
-        setArrCheckIndex(prevValue=> prevValue+1);
-        console.log(arrCheckIndex);
-        console.log(true);
-        setTypeValue('');
-        // setScore(score+1);
+      if(newStr[arrCheckIndex].value===(typeValue.trim())){
+        const arr = newStr.map((item,i)=>{
+          if(i===arrCheckIndex){
+            return {
+              value:item.value,
+              error:false,
+              correct:true
+            }}
+          return item;
+        })
+        setNewStr(arr);
         setScore(prev=>prev+1);
-        console.log(score);
       }
       else{
-        setArrCheckIndex(prevValue=> prevValue+1);
         setWrongCount(prevValue=>prevValue+1);
-        // setNewTypeValue('');
-        // typeValue ='';
-        console.log(typeValue);
-        console.log(arrCheckIndex);
-        console.log(false);
-        setTypeValue('');
+        const arr = newStr.map((item,i)=>{
+          if(i===arrCheckIndex){
+            return {
+              value:item.value,
+              error:true,
+              correct:false
+            }}
+          return item;
+        })
+        setNewStr(arr);
       }
+      setArrCheckIndex(prevValue=> prevValue+1);
+      setTypeValue('');
     }
     else{
-      // setTypeValue(typeValue+(`${e.target.value}`));
       setTypeValue(e.target.value);
     }
   };
-
+  
   function handleChange(e){
-    console.log(typeValue);
     setTypeValue(e.target.value);
     if(e.target.value && (!startWritting)){
       setStartWritting(true);
-       handleInterval(.1);
+       handleInterval(1);
     }
   }
+  let mit;
   function handleInterval(putMinutes){
     let timeCount = putMinutes;
     let initialTime = timeCount*60000;
     let seconds,minutes;
-    let mit = setInterval(()=>{
+    mit = setInterval(()=>{
       initialTime -=1000;
       seconds =(initialTime/1000)%60;
       minutes = Math.floor(initialTime/60000);
@@ -96,16 +107,26 @@ export default function Ui() {
     setStartWritting(false);
     setScore(0);
     setArrCheckIndex(0);
+    //-----------
+    const arr = newStr.map((item,i)=>{
+        return {
+          value:item.value,
+          error:false,
+          correct:false
+        }
+      
+    });
+    setNewStr(arr);
   }
   function handleClick(e) {
-    window.location.reload();
+    clearInterval(mit);
   }
   
   return (
     <>
-    <div className="ui" id={overlay && "overlay"}>
+    <div className={`ui ${overlay && "overlay"}`}>
       {/* <div className="content">{newArr}</div> */}
-      <div className="content">{typeString}</div>
+      <div className="content">{newArr}</div>
       <div className="inputDiv">
         <input
           type="text"
@@ -129,4 +150,3 @@ export default function Ui() {
     </>
   );
 }
-/*style={{display:visible?'none':null}} */
