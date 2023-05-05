@@ -74,7 +74,7 @@ export default function Ui() {
     setTypeValue(e.target.value);
     if(e.target.value && (!startWritting)){
       setStartWritting(true);
-       handleInterval(1);
+       handleInterval(.1);
     }
   }
   let mit;

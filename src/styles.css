@@ -293,3 +293,35 @@ span{
         bottom:40%;
     }
 }
+@media (max-width:365px){
+    .inputDiv{
+        display:flex;
+        margin:3rem;
+        background-color:rgba(66, 64, 64, 0.4);
+        padding:4px;
+        border-radius:10px;
+        align-items:center;
+    }
+    input{
+        font-size:.85rem;
+        padding:10px 0;
+        border-width: 1px;
+        border-radius:10px;
+        box-shadow: inset 2px 1px 3px 3px rgb(199, 196, 196);
+    }
+    .time{
+        padding:.8rem .5rem;
+        background-color: rgba(0, 0, 0,.8);
+        color:#fff;
+        font-size:1rem;
+        margin:0 10px;
+        border-radius:10px;
+    }
+    .refresh{
+        padding:.8rem 1rem;
+        background-color: #3973cf;
+        color:#fff;
+        font-size:1rem;
+        border-radius:10px;
+    }
+}
