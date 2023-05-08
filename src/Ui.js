@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiRefresh } from "react-icons/bi";
-import { ImCross } from "react-icons/im";
+import { RxCross2 } from "react-icons/rx";
 import { v4 as uuidv4 } from 'uuid';
+import { mainString } from "./components/mainString";
 
 export default function Ui() {
   const [time, setTime] = useState({ minutes: "00", seconds: "00" });
@@ -13,9 +14,10 @@ export default function Ui() {
   const [disableInput,setDisableInput] = useState(false);
   const [overlay,setOverlay]= useState(null);
   const [worngCount,setWrongCount] = useState(0);
-  const typeString =
-    "Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your";
-  const newTypeString = typeString.split(' ').map((item,i)=>{
+  const [initial,setInitial] = useState(0);
+  const [initVal,setInitVal]= useState(1);
+  let typeString = mainString[Math.floor(Math.random()*3)];
+  let newTypeString = typeString.split(' ').map((item,i)=>{
     return {
       value:item,
       error:undefined,
@@ -25,7 +27,8 @@ export default function Ui() {
   const [newStr,setNewStr] = useState(newTypeString);
 
   //-----------rendering text on screen------------//
-  const newArr = newStr.map(({value,error,correct})=><span key={uuidv4()} className={error?'error':null || correct?'correct':null}>{value}</span>)
+  let newArr1 = newStr.map(({value,error,correct})=><span key={uuidv4()} className={error?'error':null || correct?'correct':null}>{value}</span>)
+  let newArr = newArr1.slice(initial,(initial+17));
   //----------------//
 
   function handleKeyDown(e) {
@@ -58,30 +61,35 @@ export default function Ui() {
       }
       setArrCheckIndex(prevValue=> prevValue+1);
       setTypeValue('');
+      setInitVal(prev=>prev+1);
+      if((initVal%17)===0){
+        setInitial(initVal);
+      }
     }
     else{
       setTypeValue(e.target.value);
     }
   };
-  
   function handleChange(e){
     setTypeValue(e.target.value);
     if(e.target.value && (!startWritting)){
       setStartWritting(true);
-       handleInterval(1);
+       handleInterval(.1);
     }
   }
-  let mit;
+  let timeInterval;
+  let seconds,minutes;
+  //--------handle Interval----------//
   function handleInterval(putMinutes){
     let timeCount = putMinutes;
     let initialTime = timeCount*60000;
-    let seconds,minutes;
-    mit = setInterval(()=>{
+    
+    timeInterval = setInterval(()=>{
       initialTime -=1000;
       seconds =(initialTime/1000)%60;
       minutes = Math.floor(initialTime/60000);
       if(minutes===0 && seconds===0){
-        stopTimer(mit);
+        stopTimer(timeInterval);
       }
       if(seconds<10){
         seconds = '0'+ seconds;
@@ -89,11 +97,12 @@ export default function Ui() {
       if(minutes<10){
         minutes = '0'+minutes;
       }
-      setTime({minutes:minutes,seconds:seconds})
+      setTime({minutes:minutes,seconds:seconds});
+      //--------||-----------//
     },1000);
   }
-  function stopTimer(mit){
-    clearInterval(mit);
+  function stopTimer(timeInterval){
+    clearInterval(timeInterval);
     setVisible(false);
     setTypeValue('');
     setDisableInput(true);
@@ -106,7 +115,10 @@ export default function Ui() {
     setStartWritting(false);
     setScore(0);
     setArrCheckIndex(0);
-    //-----------
+    setWrongCount(0);
+    setInitial(0);
+    setInitVal(1)
+    
     const arr = newStr.map((item,i)=>{
         return {
           value:item.value,
@@ -118,23 +130,21 @@ export default function Ui() {
     setNewStr(arr);
   }
   function handleClick(e) {
-    clearInterval(mit);
+
   }
   
   return (
     <>
     <div className={`ui ${overlay && "overlay"}`}>
-      {/* <div className="content">{newArr}</div> */}
       <div className="content">{newArr}</div>
       <div className="inputDiv">
         <input
           type="text"
           onKeyDown={handleKeyDown}
-          // onFocus={handleFocus}
+
           autoCorrect='off'
           onChange={handleChange}
           value = {typeValue}
-          // style={{outline:visible?null:'none'}}
           disabled ={disableInput}
         ></input>
         <div className="time">
@@ -145,7 +155,7 @@ export default function Ui() {
         </div>
       </div>
     </div>
-    <div className='result' style={{display:visible?'none':null}}><button className='close-modal' onClick={closeModleHandler}><ImCross/></button><div><h2 >SCORE: {score} WPM</h2><h2>WRONG: {worngCount}</h2></div></div>
+    <div className={`result ${visible&& 'visible'}`} ><button className='close-modal' onClick={closeModleHandler}><RxCross2/></button><div className='inner-div'><div><p >SCORE: {score} WPM</p></div><div><p>WRONG: {worngCount}</p></div></div></div>
     </>
   );
 }
