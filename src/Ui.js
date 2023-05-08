@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiRefresh } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import { v4 as uuidv4 } from 'uuid';
@@ -77,17 +77,19 @@ export default function Ui() {
        handleInterval(.1);
     }
   }
-  let mit;
+  let timeInterval;
+  let seconds,minutes;
+  //--------handle Interval----------//
   function handleInterval(putMinutes){
     let timeCount = putMinutes;
     let initialTime = timeCount*60000;
-    let seconds,minutes;
-    mit = setInterval(()=>{
+    
+    timeInterval = setInterval(()=>{
       initialTime -=1000;
       seconds =(initialTime/1000)%60;
       minutes = Math.floor(initialTime/60000);
       if(minutes===0 && seconds===0){
-        stopTimer(mit);
+        stopTimer(timeInterval);
       }
       if(seconds<10){
         seconds = '0'+ seconds;
@@ -95,11 +97,12 @@ export default function Ui() {
       if(minutes<10){
         minutes = '0'+minutes;
       }
-      setTime({minutes:minutes,seconds:seconds})
+      setTime({minutes:minutes,seconds:seconds});
+      //--------||-----------//
     },1000);
   }
-  function stopTimer(mit){
-    clearInterval(mit);
+  function stopTimer(timeInterval){
+    clearInterval(timeInterval);
     setVisible(false);
     setTypeValue('');
     setDisableInput(true);
@@ -115,9 +118,7 @@ export default function Ui() {
     setWrongCount(0);
     setInitial(0);
     setInitVal(1)
-    //------------
     
-    //-----------
     const arr = newStr.map((item,i)=>{
         return {
           value:item.value,
@@ -129,7 +130,7 @@ export default function Ui() {
     setNewStr(arr);
   }
   function handleClick(e) {
-    clearInterval(mit);
+
   }
   
   return (
@@ -154,8 +155,7 @@ export default function Ui() {
         </div>
       </div>
     </div>
-    <div className='result' style={{display:visible?'none':null}}><button className='close-modal' onClick={closeModleHandler}><RxCross2/></button><div className='inner-div'><div><p >SCORE: {score} WPM</p></div><div><p>WRONG: {worngCount}</p></div></div></div>
+    <div className={`result ${visible&& 'visible'}`} ><button className='close-modal' onClick={closeModleHandler}><RxCross2/></button><div className='inner-div'><div><p >SCORE: {score} WPM</p></div><div><p>WRONG: {worngCount}</p></div></div></div>
     </>
-    //style={{display:visible?'none':null}}
   );
 }

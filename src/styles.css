@@ -83,6 +83,22 @@ input:focus{
 .icon{
     margin-top:10px;
 }
+@keyframes anim1{
+    0%{
+     transform:scale(0);
+    }
+    100%{
+     transform: scale(1);
+    }
+ }
+ @keyframes anim2{
+    0%{
+     transform:translatey(-200px);
+    }
+    100%{
+     transform: translatey(0%);
+    }
+ }
 .result{
     position:absolute;
     z-index:1;
@@ -95,6 +111,7 @@ input:focus{
     right:35%;
     top:20%;
     bottom:25%;
+    animation: anim2 200ms ease-in 0ms 1 ; 
 }
 .overlay::before{
     content:"";
@@ -104,6 +121,7 @@ input:focus{
     left:0;
     right:0;
     bottom:0;
+    animation: anim1 200ms ease-in 0ms 1 ;
 }
 
 .close-modal{
@@ -140,8 +158,16 @@ span{
 .error{
     color: red;
 }
-.inner-div{
-
+@keyframes anim{
+   0%{
+    transform:scale(0);
+   }
+   100%{
+    transform: scale(1);
+   }
+}
+.visible{
+    display:none; 
 }
 @media (max-width: 1700px) {
     .inputDiv{
@@ -293,7 +319,36 @@ span{
         bottom:40%;
     }
 }
-@media (max-width:365px){
+@media (max-width:650px){
+    .result {
+        position: absolute;
+        z-index: 1;
+        border: none;
+        border-radius: 1rem;
+        padding: 6rem 3rem 3rem 3rem;
+        background-color: white;
+        box-shadow: 7px 4px 10px grey;
+        left: 23%;
+        right: 23%;
+        top: 20%;
+        bottom: 35%;
+    }
+     .inner-div div{
+        background-color: rgb(115, 82, 232);
+        padding:1rem 0;
+        border-radius:10px;
+        margin-top: 1rem;
+        box-shadow: 2px 3px 5px 5px rgb(212, 210, 210);
+    }
+    .inner-div p{
+        font-size: 1rem;
+    }
+    .inner-div {
+        padding: 0rem;
+        margin: auto -10%;
+    } 
+}
+@media (max-width:370px){
     .inputDiv{
         display:flex;
         margin:3rem;
@@ -324,4 +379,31 @@ span{
         font-size:1rem;
         border-radius:10px;
     }
+    .result{
+    position: absolute;
+    z-index: 1;
+    border: none;
+    border-radius: 1rem;
+    padding: 6rem 3rem 3rem 3rem;
+    background-color: white;
+    box-shadow: 7px 4px 10px grey;
+    left: 14%;
+    right: 14%;
+    top: 20%;
+    bottom: 35%;
+ }
+ .inner-div div{
+    background-color: rgb(115, 82, 232);
+    padding:1rem 0;
+    border-radius:10px;
+    margin-top: 1rem;
+    box-shadow: 2px 3px 5px 5px rgb(212, 210, 210);
+}
+.inner-div p{
+    font-size: 1rem;
+}
+.inner-div {
+    padding: 0rem;
+    margin: auto -25%;
+}
 }
