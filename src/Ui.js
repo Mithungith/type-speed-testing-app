@@ -22,11 +22,10 @@ export default function Ui() {
       correct:undefined
     }
   }); 
-  console.log(newTypeString)
   const [newStr,setNewStr] = useState(newTypeString);
 
   //-----------rendering text on screen------------//
-  const newArr = newStr.map(({value,error,correct})=><span className={error?'error':null || correct?'correct':null}>{value}</span>)
+  const newArr = newStr.map(({value,error,correct})=><span key={uuidv4()} className={error?'error':null || correct?'correct':null}>{value}</span>)
   //----------------//
 
   function handleKeyDown(e) {
