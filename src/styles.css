@@ -99,6 +99,17 @@ input:focus{
      transform: translatey(0%);
     }
  }
+<<<<<<< HEAD
+=======
+ @keyframes anim3{
+    0%{
+     transform:scale(1);
+    }
+    100%{
+     transform: scale(0);
+    }
+ }
+>>>>>>> test
 .result{
     position:absolute;
     z-index:1;
@@ -122,9 +133,13 @@ input:focus{
     right:0;
     bottom:0;
     animation: anim1 200ms ease-in 0ms 1 ;
+<<<<<<< HEAD
+=======
+    transition: scale 2000ms ease-in 0ms;
+>>>>>>> test
 }
 
-.close-modal{
+.close-modal-btn{
   position:absolute;
   top:10px;
   right:10px;
@@ -158,6 +173,7 @@ span{
 .error{
     color: red;
 }
+<<<<<<< HEAD
 @keyframes anim{
    0%{
     transform:scale(0);
@@ -167,6 +183,10 @@ span{
    }
 }
 .visible{
+=======
+
+.invisible{
+>>>>>>> test
     display:none; 
 }
 @media (max-width: 1700px) {
