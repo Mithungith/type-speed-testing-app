@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiRefresh } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import { v4 as uuidv4 } from 'uuid';
@@ -9,13 +9,14 @@ export default function Ui() {
   let [arrCheckIndex,setArrCheckIndex] = useState(0);
   let [typeValue,setTypeValue]= useState('');
   const [score,setScore] = useState(0);
-  const [visible,setVisible] = useState(true);
+  const [invisible,setInVisible] = useState(true);
   const [startWritting,setStartWritting] = useState(false);
   const [disableInput,setDisableInput] = useState(false);
   const [overlay,setOverlay]= useState(null);
   const [worngCount,setWrongCount] = useState(0);
   const [initial,setInitial] = useState(0);
   const [initVal,setInitVal]= useState(1);
+  const [newStr,setNewStr] = useState([]);
   let typeString = mainString[Math.floor(Math.random()*3)];
   let newTypeString = typeString.split(' ').map((item,i)=>{
     return {
@@ -24,13 +25,13 @@ export default function Ui() {
       correct:undefined
     }
   }); 
-  const [newStr,setNewStr] = useState(newTypeString);
-
+  useEffect(()=>{
+    setNewStr(newTypeString);
+  },[]);
   //-----------rendering text on screen------------//
   let newArr1 = newStr.map(({value,error,correct})=><span key={uuidv4()} className={error?'error':null || correct?'correct':null}>{value}</span>)
   let newArr = newArr1.slice(initial,(initial+17));
-  //----------------//
-
+  //-------------//
   function handleKeyDown(e) {
     if(e.key===" "){
       if(newStr[arrCheckIndex].value===(typeValue.trim())){
@@ -74,7 +75,7 @@ export default function Ui() {
     setTypeValue(e.target.value);
     if(e.target.value && (!startWritting)){
       setStartWritting(true);
-       handleInterval(.1);
+       handleInterval(1);
     }
   }
   let timeInterval;
@@ -98,18 +99,17 @@ export default function Ui() {
         minutes = '0'+minutes;
       }
       setTime({minutes:minutes,seconds:seconds});
-      //--------||-----------//
     },1000);
   }
   function stopTimer(timeInterval){
     clearInterval(timeInterval);
-    setVisible(false);
+    setInVisible(false);
     setTypeValue('');
     setDisableInput(true);
     setOverlay(true);
   }
   function closeModleHandler(){
-    setVisible(true);
+    setInVisible(true);
     setDisableInput(false);
     setOverlay(false);
     setStartWritting(false);
@@ -117,8 +117,7 @@ export default function Ui() {
     setArrCheckIndex(0);
     setWrongCount(0);
     setInitial(0);
-    setInitVal(1)
-    
+    setInitVal(1);    
     const arr = newStr.map((item,i)=>{
         return {
           value:item.value,
@@ -129,8 +128,8 @@ export default function Ui() {
     });
     setNewStr(arr);
   }
-  function handleClick(e) {
-
+  function handleClick() {
+    window.location.reload();
   }
   
   return (
@@ -155,7 +154,7 @@ export default function Ui() {
         </div>
       </div>
     </div>
-    <div className={`result ${visible&& 'visible'}`} ><button className='close-modal' onClick={closeModleHandler}><RxCross2/></button><div className='inner-div'><div><p >SCORE: {score} WPM</p></div><div><p>WRONG: {worngCount}</p></div></div></div>
+    <div title='Refresh page' className={`result ${invisible&& 'invisible'}`} ><button className='close-modal-btn' onClick={closeModleHandler}><RxCross2/></button><div className='inner-div'><div><p >SCORE: {score} WPM</p></div><div><p>WRONG: {worngCount}</p></div></div></div>
     </>
   );
 }
