@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiRefresh } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import { v4 as uuidv4 } from 'uuid';
@@ -16,10 +16,7 @@ export default function Ui() {
   const [worngCount,setWrongCount] = useState(0);
   const [initial,setInitial] = useState(0);
   const [initVal,setInitVal]= useState(1);
-<<<<<<< HEAD
-=======
   const [newStr,setNewStr] = useState([]);
->>>>>>> test
   let typeString = mainString[Math.floor(Math.random()*3)];
   let newTypeString = typeString.split(' ').map((item,i)=>{
     return {
@@ -28,15 +25,6 @@ export default function Ui() {
       correct:undefined
     }
   }); 
-<<<<<<< HEAD
-  const [newStr,setNewStr] = useState(newTypeString);
-
-  //-----------rendering text on screen------------//
-  let newArr1 = newStr.map(({value,error,correct})=><span key={uuidv4()} className={error?'error':null || correct?'correct':null}>{value}</span>)
-  let newArr = newArr1.slice(initial,(initial+17));
-  //----------------//
-
-=======
   useEffect(()=>{
     setNewStr(newTypeString);
   },[]);
@@ -44,7 +32,6 @@ export default function Ui() {
   let newArr1 = newStr.map(({value,error,correct})=><span key={uuidv4()} className={error?'error':null || correct?'correct':null}>{value}</span>)
   let newArr = newArr1.slice(initial,(initial+17));
   //-------------//
->>>>>>> test
   function handleKeyDown(e) {
     if(e.key===" "){
       if(newStr[arrCheckIndex].value===(typeValue.trim())){
@@ -112,19 +99,11 @@ export default function Ui() {
         minutes = '0'+minutes;
       }
       setTime({minutes:minutes,seconds:seconds});
-<<<<<<< HEAD
-      //--------||-----------//
-=======
->>>>>>> test
     },1000);
   }
   function stopTimer(timeInterval){
     clearInterval(timeInterval);
-<<<<<<< HEAD
-    setVisible(false);
-=======
     setInVisible(false);
->>>>>>> test
     setTypeValue('');
     setDisableInput(true);
     setOverlay(true);
@@ -138,12 +117,7 @@ export default function Ui() {
     setArrCheckIndex(0);
     setWrongCount(0);
     setInitial(0);
-<<<<<<< HEAD
-    setInitVal(1)
-    
-=======
     setInitVal(1);    
->>>>>>> test
     const arr = newStr.map((item,i)=>{
         return {
           value:item.value,
@@ -154,13 +128,8 @@ export default function Ui() {
     });
     setNewStr(arr);
   }
-<<<<<<< HEAD
-  function handleClick(e) {
-
-=======
   function handleClick() {
     window.location.reload();
->>>>>>> test
   }
   
   return (
@@ -185,11 +154,7 @@ export default function Ui() {
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-    <div className={`result ${visible&& 'visible'}`} ><button className='close-modal' onClick={closeModleHandler}><RxCross2/></button><div className='inner-div'><div><p >SCORE: {score} WPM</p></div><div><p>WRONG: {worngCount}</p></div></div></div>
-=======
     <div title='Refresh page' className={`result ${invisible&& 'invisible'}`} ><button className='close-modal-btn' onClick={closeModleHandler}><RxCross2/></button><div className='inner-div'><div><p >SCORE: {score} WPM</p></div><div><p>WRONG: {worngCount}</p></div></div></div>
->>>>>>> test
     </>
   );
 }
